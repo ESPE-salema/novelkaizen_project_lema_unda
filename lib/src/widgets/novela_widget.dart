@@ -1,28 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:novelkaizen_project_lema_unda/src/models/novela_model.dart';
+import 'package:novelkaizen_project_lema_unda/src/services/novela_service.dart';
+import 'package:novelkaizen_project_lema_unda/src/widgets/novela_card.dart';
 
-class NovelaWidget extends StatelessWidget {
-  const NovelaWidget({Key? key, required this.model}) : super(key: key);
+class NovelaWidget extends StatefulWidget {
+  const NovelaWidget({Key? key}) : super(key: key);
 
-  final Novela model;
+  @override
+  State<NovelaWidget> createState() => _NovelasWidgetState();
+}
+
+class _NovelasWidgetState extends State<NovelaWidget> {
+  final NovelaService _novelaService = NovelaService();
+  List<Novela>? _novelas;
+
+  @override
+  void initState() {
+    super.initState();
+    _downloadNovelas();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: ListTile(
-      leading:
-          CircleAvatar(backgroundImage: NetworkImage(model.portada.toString())),
-      title: Text(model.titulo ?? ""),
-      subtitle: Text("Autor: " +
-          model.autor.toString() +
-          "\n\nDescripción: " +
-          model.descripcion.toString()),
-      trailing: IconButton(
-        icon: const Icon(Icons.check_circle),
-        color: (model.favorito == true) ? Colors.green : Colors.red,
-        tooltip: model.favorito.toString(),
-        onPressed: () {},
-      ),
-    ));
+    return Scaffold(
+        body: _novelas == null
+            ? const Center(
+                child: SizedBox.square(
+                    dimension: 50.0, child: CircularProgressIndicator()))
+            : _novelas!.isEmpty
+                ? const Center(child: Text("No hay novelas que mostrar"))
+                : ListView(
+                    children:
+                        _novelas!.map((e) => NovelaCard(model: e)).toList(),
+                  ));
+  }
+
+  _downloadNovelas() async {
+    _novelas = await _novelaService.getNovelas();
+    setState(() {});
   }
 }

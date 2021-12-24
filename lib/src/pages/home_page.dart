@@ -1,43 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:novelkaizen_project_lema_unda/src/models/novela_model.dart';
-import 'package:novelkaizen_project_lema_unda/src/services/novela_service.dart';
-import 'package:novelkaizen_project_lema_unda/src/widgets/novela_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:novelkaizen_project_lema_unda/src/utils/main_menu.dart';
+import 'package:novelkaizen_project_lema_unda/src/providers/main_provider.dart';
 
-class HomePage extends StatefulWidget {
+final List<String> _options = [
+  "Inicio",
+  "Género",
+  "Descubrir",
+  "Biblioteca",
+  "Yo"
+];
+
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final NovelaService _novelaService = NovelaService();
-  List<Novela>? _novelas;
-
-  @override
-  void initState() {
-    super.initState();
-    _downloadNovelas();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text("KAIZEN NOVEL")),
-        body: _novelas == null
-            ? const Center(
-                child: SizedBox.square(
-                    dimension: 50.0, child: CircularProgressIndicator()))
-            : _novelas!.isEmpty
-                ? const Center(child: Text("No hay novelas que mostrar"))
-                : ListView(
-                    children:
-                        _novelas!.map((e) => NovelaWidget(model: e)).toList(),
-                  ));
-  }
-
-  _downloadNovelas() async {
-    _novelas = await _novelaService.getNovelas();
-    setState(() {});
+    final mainProvider = Provider.of<MainProvider>(context, listen: true);
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+            leading: Switch(
+                value: mainProvider.mode,
+                onChanged: (bool value) async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setBool("mode", value);
+                  mainProvider.mode = value;
+                }),
+            centerTitle: true,
+            title: Text('NOVEL KAIZEN - ' + _options[mainProvider.index])),
+        body: homeWidgets[mainProvider.index],
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (int index) {
+            mainProvider.index = index;
+          },
+          currentIndex: mainProvider.index,
+          type: BottomNavigationBarType.fixed,
+          items: menuOptions
+              .map((e) =>
+                  BottomNavigationBarItem(icon: Icon(e.icon), label: e.title))
+              .toList(),
+        ),
+      ),
+    );
   }
 }
