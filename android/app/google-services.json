@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "521990610273",
+    "firebase_url": "https://novelkaizen-backend-default-rtdb.firebaseio.com",
+    "project_id": "novelkaizen-backend",
+    "storage_bucket": "novelkaizen-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521990610273:android:71b38ffd26d9e024ea3920",
+        "android_client_info": {
+          "package_name": "com.example.novelkaizen_project_lema_unda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "521990610273-3t1su9nu8h6akks6g23gj8897rhghvsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_eUgWO-NhB6EILYGpRseeR_GJ7YHothw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "521990610273-3t1su9nu8h6akks6g23gj8897rhghvsm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
