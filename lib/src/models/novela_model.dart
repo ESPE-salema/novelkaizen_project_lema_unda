@@ -6,7 +6,7 @@ String novelaToJson(Novela data) => json.encode(data.toJson());
 
 class Novela {
   Novela({
-    this.idNovela,
+    //this.idNovela,
     this.autor,
     this.titulo,
     this.portada,
@@ -18,7 +18,7 @@ class Novela {
     this.capitulos,*/
   });
 
-  String? idNovela;
+  //String? idNovela;
   String? autor;
   String? titulo;
   String? portada;
@@ -29,7 +29,7 @@ class Novela {
   List<Capitulo>? capitulos;*/
 
   factory Novela.fromJson(Map<String, dynamic> json) => Novela(
-      idNovela: json["idNovela"],
+      //idNovela: json["idNovela"],
       autor: json["autor"],
       titulo: json["titulo"],
       portada: json["portada"],
@@ -43,7 +43,7 @@ class Novela {
       );
 
   Map<String, dynamic> toJson() => {
-        "idNovela": idNovela,
+        //"idNovela": idNovela,
         "autor": autor,
         "titulo": titulo,
         "portada": portada,

@@ -1,5 +1,6 @@
 import 'dart:io';
-
+import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,14 +9,18 @@ import 'package:novelkaizen_project_lema_unda/src/models/novela_model.dart';
 import 'package:novelkaizen_project_lema_unda/src/services/novela_service.dart';
 import 'package:novelkaizen_project_lema_unda/src/utils/validation.dart';
 
-class NovelaFormWidget extends StatefulWidget {
-  const NovelaFormWidget({Key? key}) : super(key: key);
+class NovelaFirebaseFormWidget extends StatefulWidget {
+  const NovelaFirebaseFormWidget({Key? key}) : super(key: key);
 
   @override
-  _NovelaFormWidgetState createState() => _NovelaFormWidgetState();
+  _NovelaFirebaseFormWidgetState createState() =>
+      _NovelaFirebaseFormWidgetState();
 }
 
-class _NovelaFormWidgetState extends State<NovelaFormWidget> {
+class _NovelaFirebaseFormWidgetState extends State<NovelaFirebaseFormWidget> {
+  final CollectionReference _novelasRef =
+      FirebaseFirestore.instance.collection('novelas');
+
   late Novela _novela;
   File? _imagen;
   final ImagePicker _picker = ImagePicker();
@@ -28,12 +33,15 @@ class _NovelaFormWidgetState extends State<NovelaFormWidget> {
     super.initState();
     setState(() {
       _novela = Novela();
+      _novela.fechaCreacion =
+          DateFormat("dd/MM/yyyy").format(DateTime.now()).toString();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: const Text("Agregar novela")),
       body: SingleChildScrollView(
@@ -155,7 +163,9 @@ class _NovelaFormWidgetState extends State<NovelaFormWidget> {
                               dateFormat: "dd-MMMM-yyyy",
                               locale: DatePicker.localeFromString('es'),
                               onChange: (DateTime newDate, _) {
-                                _novela.fechaCreacion = newDate.toString();
+                                _novela.fechaCreacion = DateFormat("dd/MM/yyyy")
+                                    .format(newDate)
+                                    .toString();
                               }),
                           Padding(
                               padding:
@@ -206,11 +216,10 @@ class _NovelaFormWidgetState extends State<NovelaFormWidget> {
     }
 
     //Invoca al servicio POST para enviar la Portada
-    int estado = await _novelaService.postNovela(_novela);
-    if (estado == 201) {
-      _formKey.currentState!.reset();
-      _onSaving = false;
-      Navigator.pop(context);
-    }
+    _novelasRef.add(_novela.toJson()).whenComplete(() => {
+          _formKey.currentState!.reset(),
+          _onSaving = false,
+          Navigator.pop(context),
+        });
   }
 }

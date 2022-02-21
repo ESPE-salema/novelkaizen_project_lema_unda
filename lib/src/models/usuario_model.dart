@@ -5,19 +5,19 @@ String usuarioToJson(Usuario data) => json.encode(data.toJson());
 class Usuario {
   Usuario({
     this.id,
-    this.usuario,
+    this.displayName,
     this.email,
     this.password,
   });
 
   int? id;
-  String? usuario;
+  String? displayName;
   String? email;
   String? password;
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "usuario": usuario,
+        "displayName": displayName,
         "email": email,
         "password": password,
       };

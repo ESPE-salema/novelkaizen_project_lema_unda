@@ -47,6 +47,15 @@ dependencies:
   cloud_firestore: ^3.1.7
   rxdart: ^0.27.3
   jwt_decoder: ^2.0.1
+  intl: ^0.17.0
+  firebase_auth: ^3.3.7
+  firebase_messaging: ^11.2.6
+  flutter_local_notifications: ^9.2.0
+  restart_app: ^1.1.0
+
+dependency_overrides:
+  # Override for `flutter_local_notifications`:
+  plugin_platform_interface: ^2.1.2
 
 dev_dependencies:
   flutter_test:

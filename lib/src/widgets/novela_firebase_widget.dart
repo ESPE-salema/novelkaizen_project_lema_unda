@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:novelkaizen_project_lema_unda/src/models/novela_model.dart';
 import 'package:novelkaizen_project_lema_unda/src/widgets/novela_card.dart';
-
-import 'novela_form_widget.dart';
+import 'package:novelkaizen_project_lema_unda/src/widgets/novela_firebase_form_widget.dart';
 
 class NovelaFirebaseWidget extends StatefulWidget {
   const NovelaFirebaseWidget({Key? key}) : super(key: key);
@@ -56,7 +55,7 @@ class _NovelaFirebaseWidgetState extends State<NovelaFirebaseWidget> {
                 Navigator.push<void>(
                   context,
                   MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const NovelaFormWidget(),
+                    builder: (BuildContext context) => const NovelaFirebaseFormWidget(),
                   ),
                 );
               },

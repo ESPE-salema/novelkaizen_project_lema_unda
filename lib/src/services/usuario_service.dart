@@ -13,6 +13,7 @@ class UsuarioService {
   Future<Map<String, dynamic>> login(Usuario usuario) async {
     try {
       final loginBody = {
+        "usuario": usuario.displayName,
         "email": usuario.email,
         "password": usuario.password,
         "returnSecureToken": true

@@ -52,6 +52,19 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         StreamBuilder<String>(
+                            stream: _signUpBloc.usernameStream,
+                            builder: (context, snapshot) {
+                              return TextField(
+                                  keyboardType: TextInputType.emailAddress,
+                                  onChanged: _signUpBloc.changeUsername,
+                                  decoration: InputDecoration(
+                                      errorText: snapshot.error?.toString(),
+                                      icon: const Icon(
+                                          Icons.person_add_alt_1_rounded),
+                                      labelText: "Nombre de usuario",
+                                      hintText: "Nombre de Usuario"));
+                            }),
+                        StreamBuilder<String>(
                             stream: _signUpBloc.emailStream,
                             builder: (context, snapshot) {
                               return TextField(
@@ -61,7 +74,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       errorText: snapshot.error?.toString(),
                                       icon: const Icon(Icons.email),
                                       labelText: "Correo electrónico",
-                                      hintText: "admin@trifasic.com"));
+                                      hintText: "admin@kaizen.com"));
                             }),
                         StreamBuilder<String>(
                             stream: _signUpBloc.passwordStream,
@@ -81,7 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                                 ? Icons.visibility
                                                 : Icons.visibility_off,
                                           )),
-                                      icon: const Icon(Icons.lock),
+                                      icon: const Icon(Icons.verified_user),
                                       labelText: "Contraseña"));
                             }),
                         Padding(
@@ -93,18 +106,50 @@ class _SignUpPageState extends State<SignUpPage> {
                                     onPressed: snapshot.hasData
                                         ? () async {
                                             Usuario usr = Usuario(
+                                                displayName:
+                                                    _signUpBloc.username,
                                                 email: _signUpBloc.email,
                                                 password: _signUpBloc.password);
                                             int result =
                                                 await _usrServ.postUsuario(usr);
                                             if (result == 201) {
                                               Navigator.pop(context);
+                                            } else if (result == 500) {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                        title: const Text(
+                                                            'Alerta'),
+                                                        content: const Text(
+                                                            'El usuario ya existe.'),
+                                                        actions: <Widget>[
+                                                          // ignore: deprecated_member_use
+                                                          FlatButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: const Text(
+                                                                  'Ok'))
+                                                        ],
+                                                      ));
                                             }
                                           }
                                         : null,
                                     icon: const Icon(Icons.login),
-                                    label: const Text("Ingresar"));
+                                    label: const Text("Registrarse"));
                               }),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "/login");
+                                },
+                                child: const Text("Inicio sesión"))
+                          ],
                         )
                       ],
                     ),

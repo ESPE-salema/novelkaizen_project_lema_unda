@@ -107,6 +107,26 @@ class _LoginPageState extends State<LoginPage> {
                                               mainProvider.token =
                                                   resp['idToken'];
                                             }
+                                            if (resp['idToken'] == null) {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                        title: const Text(
+                                                            "Correo o contraseña incorrectos"),
+                                                        content: const Text(
+                                                            "Intente nuevamente"),
+                                                        actions: <Widget>[
+                                                          // ignore: deprecated_member_use
+                                                          FlatButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: const Text('Ok'))
+                                                        ],
+                                                      ));
+                                            }
                                           }
                                         : null,
                                     icon: const Icon(Icons.login),

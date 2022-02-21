@@ -1,14 +1,14 @@
-import 'dart:convert';
+//import 'dart:convert';
 import 'dart:io';
 import 'package:cloudinary_public/cloudinary_public.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'dart:developer' as developer;
-import 'package:novelkaizen_project_lema_unda/src/models/novela_model.dart';
+//import 'package:novelkaizen_project_lema_unda/src/models/novela_model.dart';
 
 class NovelaService {
   NovelaService();
 
-  Future<List<Novela>?> getNovelas() async {
+  /*Future<List<Novela>?> getNovelas() async {
     try {
       List<Novela> result = [];
       var url = Uri.parse('https://novelkaizen-backend.web.app/api/novelas');
@@ -48,7 +48,7 @@ class NovelaService {
       developer.log("Error $ex");
       return 500;
     }
-  }
+  }*/
 
   Future<String> uploadImage(File image) async {
     final cloudinary = CloudinaryPublic('deqdp1jwi', 'dn1sgp7q', cache: false);
