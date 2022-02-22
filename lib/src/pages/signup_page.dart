@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:novelkaizen_project_lema_unda/src/bloc/signup_bloc.dart';
 import 'package:novelkaizen_project_lema_unda/src/models/usuario_model.dart';
 import 'package:novelkaizen_project_lema_unda/src/services/usuario_service.dart';
+import 'package:novelkaizen_project_lema_unda/src/theme/app_theme.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -29,13 +30,14 @@ class _SignUpPageState extends State<SignUpPage> {
             height: size * 0.4,
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 80.0, left: 35.0, right: 35.0),
+            padding: const EdgeInsets.only(top: 10.0, left: 35.0, right: 35.0),
             child: Column(
               children: [
+                Image.asset("assets/images/logo.png", scale: 2.2),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Text("Registro de usuario",
-                      style: Theme.of(context).textTheme.headline4!.apply(
+                      style: Theme.of(context).textTheme.headline5!.apply(
                           color: Theme.of(context).scaffoldBackgroundColor)),
                 ),
                 Container(
@@ -126,6 +128,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                                         actions: <Widget>[
                                                           // ignore: deprecated_member_use
                                                           FlatButton(
+                                                              color:
+                                                                  Palette.color,
                                                               onPressed: () {
                                                                 Navigator.pop(
                                                                     context);
@@ -141,23 +145,27 @@ class _SignUpPageState extends State<SignUpPage> {
                                     label: const Text("Registrarse"));
                               }),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "/login");
-                                },
-                                child: const Text("Inicio sesión"))
-                          ],
-                        )
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              heightFactor: MediaQuery.of(context).size.height / 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("¿Ya tienes una cuenta?"),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Inicia sesión"))
+                ],
+              ))
         ],
       ),
     )));

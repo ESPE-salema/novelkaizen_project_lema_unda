@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:novelkaizen_project_lema_unda/src/models/novela_model.dart';
+import 'package:novelkaizen_project_lema_unda/src/theme/app_theme.dart';
 import 'package:novelkaizen_project_lema_unda/src/widgets/capitulo_widget.dart';
 
 import 'novela_details_content_widget.dart';
@@ -36,7 +37,10 @@ class _NovelaDetailsWidgetState extends State<NovelaDetailsWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: TabBar(tabs: _tabs, controller: _tabController),
+        appBar: TabBar(
+            indicatorColor: Palette.color,
+            tabs: _tabs,
+            controller: _tabController),
         body: TabBarView(children: [
           NovelaDetailsContentWidget(novela: widget.novela),
           const CapituloWidget()

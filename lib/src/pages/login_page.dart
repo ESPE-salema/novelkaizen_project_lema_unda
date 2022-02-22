@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:novelkaizen_project_lema_unda/src/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:novelkaizen_project_lema_unda/src/bloc/login_bloc.dart';
 import 'package:novelkaizen_project_lema_unda/src/models/usuario_model.dart';
@@ -31,13 +32,14 @@ class _LoginPageState extends State<LoginPage> {
             height: size * 0.4,
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 80.0, left: 35.0, right: 35.0),
+            padding: const EdgeInsets.only(top: 10.0, left: 35.0, right: 35.0),
             child: Column(
               children: [
+                Image.asset("assets/images/logo.png", scale: 2.2),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Text("Inicio de sesión",
-                      style: Theme.of(context).textTheme.headline4!.apply(
+                      style: Theme.of(context).textTheme.headline5!.apply(
                           color: Theme.of(context).scaffoldBackgroundColor)),
                 ),
                 Container(
@@ -115,15 +117,18 @@ class _LoginPageState extends State<LoginPage> {
                                                         title: const Text(
                                                             "Correo o contraseña incorrectos"),
                                                         content: const Text(
-                                                            "Intente nuevamente"),
+                                                            "Intente nuevamente."),
                                                         actions: <Widget>[
                                                           // ignore: deprecated_member_use
                                                           FlatButton(
+                                                              color:
+                                                                  Palette.color,
                                                               onPressed: () {
                                                                 Navigator.pop(
                                                                     context);
                                                               },
-                                                              child: const Text('Ok'))
+                                                              child: const Text(
+                                                                  'Ok'))
                                                         ],
                                                       ));
                                             }
@@ -137,20 +142,23 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("¿No tiene cuenta?"),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/signup");
-                        },
-                        child: const Text("Regístrese"))
-                  ],
-                )
               ],
             ),
           ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              heightFactor: MediaQuery.of(context).size.height / 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("¿No tiene cuenta?"),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/signup");
+                      },
+                      child: const Text("Registrarse"))
+                ],
+              ))
         ],
       ),
     )));
