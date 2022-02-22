@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:novelkaizen_project_lema_unda/src/pages/login_page.dart';
@@ -62,9 +63,9 @@ Future<void> main() async {
     );
   }
 
-  runApp(MultiProvider(providers: [
+  runApp( MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => MainProvider()),
-  ], child: const MyApp()));
+  ], child: Phoenix(child: const MyApp())));
 }
 
 class MyApp extends StatefulWidget {

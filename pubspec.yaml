@@ -51,7 +51,7 @@ dependencies:
   firebase_auth: ^3.3.7
   firebase_messaging: ^11.2.6
   flutter_local_notifications: ^9.2.0
-  restart_app: ^1.1.0
+  flutter_phoenix: ^1.0.0
 
 dependency_overrides:
   # Override for `flutter_local_notifications`:

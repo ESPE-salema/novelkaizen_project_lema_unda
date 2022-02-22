@@ -31,8 +31,28 @@ class AppTheme {
 
   static ThemeData themeData(bool lightMode) {
     return ThemeData(
-        primarySwatch: Colors.cyan,
+        // ignore: deprecated_member_use
+        accentColor: Palette.color,
+        primarySwatch: Palette.color,
         textTheme: _textTheme,
         brightness: lightMode ? Brightness.light : Brightness.dark);
   }
+}
+
+class Palette {
+  static const MaterialColor color = MaterialColor(
+    0xFF03A9F4, // 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch.
+    <int, Color>{
+      50: Color(0xFF039FEA), //10%
+      100: Color(0xFF0395E0), //20%
+      200: Color(0xFF038BD6), //30%
+      300: Color(0xFF0381CC), //40%
+      400: Color(0xFF0377C2), //50%
+      500: Color(0xFF036DB8), //60%
+      600: Color(0xFF0363AE), //70%
+      700: Color(0xFF0359A4), //80%
+      800: Color(0xFF034F9A), //90%
+      900: Color(0xFF034590), //100%
+    },
+  );
 }

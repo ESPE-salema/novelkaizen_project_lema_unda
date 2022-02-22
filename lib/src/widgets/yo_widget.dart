@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:novelkaizen_project_lema_unda/src/providers/main_provider.dart';
 import 'package:novelkaizen_project_lema_unda/src/widgets/setting_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:restart_app/restart_app.dart';
 
 class YoWidget extends StatelessWidget {
   const YoWidget({Key? key}) : super(key: key);
@@ -22,14 +22,19 @@ class YoWidget extends StatelessWidget {
             Card(
                 elevation: 2.0,
                 child: ListTile(
-                  leading: const Icon(Icons.person),
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 20.0),
+                  leading: const Icon(
+                    Icons.account_circle,
+                    size: 60,
+                  ),
                   title: Text(content["name"] ?? ""),
-                  subtitle: const Text("Nombre de usuario"),
+                  subtitle: Text(content["email"]),
                   trailing: IconButton(
                       tooltip: "Cerrar Sesión",
                       onPressed: () {
                         mainProvider.token = "";
-                        Restart.restartApp(webOrigin: '/login');
+                        Phoenix.rebirth(context);
                       },
                       icon: const Icon(Icons.logout)),
                 )),

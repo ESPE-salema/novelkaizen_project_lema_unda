@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:novelkaizen_project_lema_unda/src/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:novelkaizen_project_lema_unda/src/providers/main_provider.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,7 @@ class SettingWidget extends StatelessWidget {
               leading: const Icon(Icons.brightness_4_outlined),
               title: const Text('Modo Oscuro'),
               trailing: Switch(
+                activeColor: Palette.color,
                 value: !mainProvider.mode,
                 onChanged: (bool value) async {
                   SharedPreferences prefs =
